@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NAS File Manager</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/styles.css">
+  <link rel="icon" type="image/png" href="/favicon.png">
+</head>
+<body>
+  <div class="container">
+    <h1>NAS File Manager</h1>
+    <div class="controls">
+      <span id="path">Current Path: /</span>
+      <div class="view-toggle">
+        <button id="gridView" class="view-btn active" onclick="setView('grid')">Grid View</button>
+        <button id="listView" class="view-btn" onclick="setView('list')">List View</button>
+      </div>
+      <input type="file" id="fileInput" multiple>
+      <button onclick="uploadFile()">Upload File(s)</button>
+      <button onclick="showCreateFolderModal()">Create Folder</button>
+      <button onclick="downloadSelected()">Download Selected</button>
+      <button onclick="refreshFiles()">Refresh</button>
+    </div>
+    <div id="backButtonContainer" style="display: none;">
+      <button class="back-btn" onclick="goBack()">Back</button>
+    </div>
+    <div class="progress-container">
+      <progress id="uploadProgress" value="0" max="100"></progress>
+      <span id="progressText">0%</span>
+    </div>
+    <div id="fileContainer" class="file-container grid-view">
+      <table id="fileList" class="file-table">
+        <thead>
+          <tr>
+            <th><input type="checkbox" id="selectAll" onchange="toggleSelectAll()"></th>
+            <th>Name</th>
+            <th>Type</th>
+            <th>Size</th>
+            <th>Modified</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="fileGrid" class="file-grid"></div>
+    </div>
+  </div>
+
+  <!-- Modals -->
+  <div id="metadataModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('metadataModal')">×</span>
+      <h2>File Metadata</h2>
+      <div id="metadataContent"></div>
+    </div>
+  </div>
+
+  <div id="imageModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('imageModal')">×</span>
+      <div id="imageContent"></div>
+    </div>
+  </div>
+
+  <div id="videoModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('videoModal')">×</span>
+      <div id="videoContent"></div>
+    </div>
+  </div>
+
+  <div id="createFolderModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('createFolderModal')">×</span>
+      <h2>Create Folder</h2>
+      <input type="text" id="newFolderName" placeholder="Folder name">
+      <button onclick="createFolder()">Create</button>
+    </div>
+  </div>
+
+  <div id="renameFolderModal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal('renameFolderModal')">×</span>
+      <h2>Rename Folder</h2>
+      <input type="text" id="renameFolderName" placeholder="New folder name">
+      <button onclick="renameFolder()">Rename</button>
+    </div>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
